@@ -6,6 +6,15 @@ on:
       - "published"
 
 jobs:
+  AnotherOne:
+    outputs:
+      version: ${{ steps.dont.outputs.version }}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Run
+        run: |
+          echo this will run
+          echo "::set-output name=version::4.1.8"
   DONOT:
     if: false
     outputs:
@@ -17,7 +26,7 @@ jobs:
           echo this will not run
           echo "::set-output name=version::4.1.8"
   Do:
-    needs: [DONOT]
+    needs: [DONOT, AnotherOne]
     runs-on: ubuntu-latest
     steps:
       - name: show vars
