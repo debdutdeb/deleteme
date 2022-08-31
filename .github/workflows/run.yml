@@ -19,3 +19,6 @@ jobs:
           )"
 
           echo "LATEST_RELEASE: $LATEST_RELEASE"
+
+      - name: jq?
+        run: which jq || true
