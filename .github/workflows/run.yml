@@ -1,0 +1,21 @@
+name: "Run"
+
+on:
+  release:
+    types:
+      - "published"
+
+jobs:
+  Do:
+    runs-on: ubuntu-latest
+    steps:
+      - name: show vars
+        run: |
+          echo "GITHUB_REF_NAME: $GITHUB_REF_NAME"
+          
+          LATEST_RELEASE="$(
+            git -c 'versionsort.suffix=-' ls-remote -t --exit-code --refs --sort=-v:refname "https://github.com/$GITHUB_REPOSITORY" '*' |
+              sed -En '1!q;s/^[[:xdigit:]]+[[:space:]]+refs\/tags\/(.+)/\1/gp'
+          )"
+
+          echo "LATEST_RELEASE: $LATEST_RELEASE"
