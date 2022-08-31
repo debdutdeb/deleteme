@@ -24,6 +24,7 @@ jobs:
           echo this will not run
           echo "::set-output name=version::4.1.8"
           exit 1
+        continue-on-error: true
   Do:
     needs: [DONOT, AnotherOne]
     runs-on: ubuntu-latest
