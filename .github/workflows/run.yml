@@ -16,7 +16,7 @@ jobs:
           echo this will run
           echo "::set-output name=version::4.1.8"
   DONOT:
-    if: false
+    if: true
     outputs:
       version: ${{ steps.dont.outputs.version }}
     runs-on: ubuntu-20.04
@@ -25,6 +25,7 @@ jobs:
         run: |
           echo this will not run
           echo "::set-output name=version::4.1.8"
+          exit 1
   Do:
     needs: [DONOT, AnotherOne]
     runs-on: ubuntu-latest
