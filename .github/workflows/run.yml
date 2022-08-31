@@ -7,12 +7,15 @@ on:
 
 jobs:
   DONOT:
+    outputs:
+      version: ${{ steps.dont.outputs.version }}
     runs-on: ubuntu-20.04
     steps:
       - name: Don't run
         if: false
         run: |
           echo this will not run
+          echo "::set-output name=version::4.1.8"
   Do:
     needs: [DONOT]
     runs-on: ubuntu-latest
@@ -27,6 +30,8 @@ jobs:
           )"
 
           echo "LATEST_RELEASE: $LATEST_RELEASE"
+
+          echo "FROM_NEEDS: ${{ needs.DONOT.outputs.version }}"
 
       - name: jq?
         run: which jq || true
