@@ -6,7 +6,15 @@ on:
       - "published"
 
 jobs:
+  DONOT:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Don't run
+        if: false
+        run: |
+          echo this will not run
   Do:
+    needs: [DONOT]
     runs-on: ubuntu-latest
     steps:
       - name: show vars
